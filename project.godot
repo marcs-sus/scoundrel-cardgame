@@ -11,9 +11,18 @@ config_version=5
 [application]
 
 config/name="scoundrel-cardGame"
-config/features=PackedStringArray("4.4", "Forward Plus")
+run/main_scene="uid://5k7qh6kkxvc0"
+config/features=PackedStringArray("4.4", "C#", "Forward Plus")
 config/icon="res://icon.svg"
+
+[autoload]
+
+Enums="*res://scripts/Enums.cs"
 
 [dotnet]
 
 project/assembly_name="scoundrel-cardGame"
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=0

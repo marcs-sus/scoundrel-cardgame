@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://5k7qh6kkxvc0"]
+[gd_scene load_steps=2 format=3 uid="uid://5k7qh6kkxvc0"]
+
+[ext_resource type="PackedScene" uid="uid://d25he7tiryu7k" path="res://scenes/card.tscn" id="1_uwrxv"]
 
 [node name="Game" type="Control"]
 layout_mode = 3
@@ -7,3 +9,30 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="Card" parent="." instance=ExtResource("1_uwrxv")]
+layout_mode = 0
+offset_left = 68.0
+offset_top = 150.0
+offset_right = 218.0
+offset_bottom = 350.0
+Suit = "Hearts"
+Rank = "10"
+
+[node name="Card2" parent="." instance=ExtResource("1_uwrxv")]
+layout_mode = 0
+offset_left = 402.0
+offset_top = 116.0
+offset_right = 552.0
+offset_bottom = 316.0
+Suit = "Clubs"
+Rank = "Ace"
+
+[node name="Card3" parent="." instance=ExtResource("1_uwrxv")]
+layout_mode = 0
+offset_left = 888.0
+offset_top = 181.0
+offset_right = 1038.0
+offset_bottom = 381.0
+Suit = "Spades"
+Rank = "King"

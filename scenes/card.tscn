@@ -1,0 +1,40 @@
+[gd_scene load_steps=3 format=3 uid="uid://d25he7tiryu7k"]
+
+[ext_resource type="Script" uid="uid://dyh2n6ewo124t" path="res://scripts/Card.cs" id="1_ktuci"]
+[ext_resource type="Texture2D" uid="uid://cdjogeib0vw2l" path="res://assets/visuals/card_atlas.tres" id="2_6u4wf"]
+
+[node name="Card" type="Button"]
+custom_minimum_size = Vector2(150, 200)
+offset_right = 150.0
+offset_bottom = 200.0
+flat = true
+script = ExtResource("1_ktuci")
+
+[node name="Shadow" type="TextureRect" parent="."]
+modulate = Color(0, 0, 0, 1)
+self_modulate = Color(1, 1, 1, 0.168627)
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 15.0
+offset_bottom = 15.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_6u4wf")
+expand_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="CardTexture" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_6u4wf")
+expand_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[connection signal="gui_input" from="." to="." method="_OnGuiInput"]
