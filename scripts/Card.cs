@@ -7,6 +7,7 @@ public partial class Card : Button
 {
 	[Export] public Enums.Suit Suit { get; set; }
 	[Export] public Enums.Rank Rank { get; set; }
+
 	public string CardName => $"{Rank} of {Suit}";
 	public int Value => (int)Rank;
 	public Enums.CardType Type

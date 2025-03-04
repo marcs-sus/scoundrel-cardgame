@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://5k7qh6kkxvc0"]
+[gd_scene load_steps=3 format=3 uid="uid://5k7qh6kkxvc0"]
 
 [ext_resource type="PackedScene" uid="uid://d25he7tiryu7k" path="res://scenes/card.tscn" id="1_uwrxv"]
+[ext_resource type="PackedScene" uid="uid://cjimxgg0y7iiy" path="res://scenes/deck.tscn" id="2_yqjtg"]
 
 [node name="Game" type="Control"]
 layout_mode = 3
@@ -10,29 +11,44 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="Deck" parent="." instance=ExtResource("2_yqjtg")]
+layout_mode = 1
+offset_left = 113.0
+offset_top = 98.0
+offset_right = -895.0
+offset_bottom = -352.0
+
 [node name="Card" parent="." instance=ExtResource("1_uwrxv")]
 layout_mode = 0
-offset_left = 68.0
-offset_top = 150.0
-offset_right = 218.0
-offset_bottom = 350.0
-Suit = "Hearts"
-Rank = "10"
+offset_left = 729.0
+offset_top = 268.0
+offset_right = 855.0
+offset_bottom = 448.0
+Suit = 2
+Rank = 14
 
 [node name="Card2" parent="." instance=ExtResource("1_uwrxv")]
 layout_mode = 0
-offset_left = 402.0
-offset_top = 116.0
-offset_right = 552.0
-offset_bottom = 316.0
-Suit = "Clubs"
-Rank = "Ace"
+offset_left = 940.0
+offset_top = 133.0
+offset_right = 1066.0
+offset_bottom = 313.0
+Suit = 1
+Rank = 11
 
 [node name="Card3" parent="." instance=ExtResource("1_uwrxv")]
 layout_mode = 0
-offset_left = 888.0
-offset_top = 181.0
-offset_right = 1038.0
-offset_bottom = 381.0
-Suit = "Spades"
-Rank = "King"
+offset_left = 582.0
+offset_top = 44.0
+offset_right = 708.0
+offset_bottom = 224.0
+Rank = 8
+
+[node name="Card4" parent="." instance=ExtResource("1_uwrxv")]
+layout_mode = 0
+offset_left = 446.0
+offset_top = 407.0
+offset_right = 572.0
+offset_bottom = 587.0
+Suit = 3
+Rank = 2

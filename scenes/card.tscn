@@ -4,9 +4,9 @@
 [ext_resource type="Texture2D" uid="uid://cdjogeib0vw2l" path="res://assets/visuals/card_atlas.tres" id="2_6u4wf"]
 
 [node name="Card" type="Button"]
-custom_minimum_size = Vector2(150, 200)
-offset_right = 150.0
-offset_bottom = 200.0
+custom_minimum_size = Vector2(126, 180)
+offset_right = 126.0
+offset_bottom = 180.0
 flat = true
 script = ExtResource("1_ktuci")
 

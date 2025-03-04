@@ -1,0 +1,55 @@
+[gd_scene load_steps=4 format=3 uid="uid://cjimxgg0y7iiy"]
+
+[ext_resource type="Texture2D" uid="uid://cdjogeib0vw2l" path="res://assets/visuals/card_atlas.tres" id="1_6rnap"]
+[ext_resource type="Script" uid="uid://cnithodf6n306" path="res://scripts/Deck.cs" id="1_gdbsr"]
+[ext_resource type="Texture2D" uid="uid://bd730uw1y2qqt" path="res://assets/visuals/deck_pile.png" id="1_sdhao"]
+
+[node name="Deck" type="Control"]
+custom_minimum_size = Vector2(144, 198)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1008.0
+offset_bottom = -450.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_gdbsr")
+
+[node name="Shadow" type="TextureRect" parent="."]
+modulate = Color(0, 0, 0, 1)
+self_modulate = Color(1, 1, 1, 0.168627)
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.0656566
+anchor_right = 1.0
+anchor_bottom = 0.924242
+offset_top = 15.0
+offset_bottom = 15.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_6rnap")
+expand_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="PileTexture" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_sdhao")
+expand_mode = 1
+
+[node name="Draw" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+flat = true
+
+[connection signal="pressed" from="Draw" to="." method="_OnDrawPressed"]
