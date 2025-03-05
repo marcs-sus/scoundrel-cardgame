@@ -1,0 +1,22 @@
+[gd_scene load_steps=2 format=3 uid="uid://dbaaefosuej74"]
+
+[ext_resource type="Script" uid="uid://blw6wqv5wx7sn" path="res://scripts/Room.cs" id="1_36trf"]
+
+[node name="Room" type="Control"]
+custom_minimum_size = Vector2(800, 300)
+layout_mode = 3
+anchor_right = 0.694444
+anchor_bottom = 0.462963
+script = ExtResource("1_36trf")
+
+[node name="Slot1" type="Marker2D" parent="."]
+position = Vector2(100, 150)
+
+[node name="Slot2" type="Marker2D" parent="."]
+position = Vector2(300, 150)
+
+[node name="Slot3" type="Marker2D" parent="."]
+position = Vector2(500, 150)
+
+[node name="Slot4" type="Marker2D" parent="."]
+position = Vector2(700, 150)

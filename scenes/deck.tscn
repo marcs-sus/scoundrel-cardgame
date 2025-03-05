@@ -1,17 +1,18 @@
-[gd_scene load_steps=4 format=3 uid="uid://cjimxgg0y7iiy"]
+[gd_scene load_steps=5 format=3 uid="uid://cjimxgg0y7iiy"]
 
-[ext_resource type="Texture2D" uid="uid://cdjogeib0vw2l" path="res://assets/visuals/card_atlas.tres" id="1_6rnap"]
 [ext_resource type="Script" uid="uid://cnithodf6n306" path="res://scripts/Deck.cs" id="1_gdbsr"]
 [ext_resource type="Texture2D" uid="uid://bd730uw1y2qqt" path="res://assets/visuals/deck_pile.png" id="1_sdhao"]
+[ext_resource type="Texture2D" uid="uid://cvl1jsbace336" path="res://assets/visuals/cards_tilesheet.png" id="2_gdbsr"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_er72m"]
+atlas = ExtResource("2_gdbsr")
+region = Rect2(856, 2, 42, 60)
 
 [node name="Deck" type="Control"]
 custom_minimum_size = Vector2(144, 198)
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = -1008.0
-offset_bottom = -450.0
+anchor_right = 0.125
+anchor_bottom = 0.305556
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_gdbsr")
@@ -27,9 +28,7 @@ anchor_right = 1.0
 anchor_bottom = 0.924242
 offset_top = 15.0
 offset_bottom = 15.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("1_6rnap")
+texture = SubResource("AtlasTexture_er72m")
 expand_mode = 1
 metadata/_edit_use_anchors_ = true
 

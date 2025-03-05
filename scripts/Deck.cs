@@ -6,7 +6,10 @@ using ScoundrelGame;
 public partial class Deck : Control
 {
 	private List<Card> _cards = new List<Card>();
+	public int CardsRemaining { get { return _cards.Count; } }
 	private PackedScene cardScene = GD.Load<PackedScene>("res://scenes/card.tscn");
+
+	private Room room => GetNode<Room>("../Room");
 
 	public override void _Ready()
 	{
@@ -47,29 +50,38 @@ public partial class Deck : Control
 		}
 	}
 
-	public Card DrawCard(List<Card> cards)
+	public Card DrawCard()
 	{
-		if (cards.Count == 0)
+		if (_cards.Count == 0)
 		{
 			GD.Print("Empty deck!");
 			return null;
 		}
 
-		Card card = cards[0];
-		cards.RemoveAt(0);
+		Card card = _cards[0];
+		_cards.RemoveAt(0);
 		return card;
+	}
+
+	public void AddCard(Card card)
+	{
+		_cards.Add(card);
 	}
 
 	private void _OnDrawPressed()
 	{
-		Card drawnCard = DrawCard(_cards);
-		if (drawnCard == null) return;
+		GD.Print("Drawn a room!");
+		room.DrawRoom(this);
 
-		Card card = cardScene.Instantiate<Card>();
-		card.Suit = drawnCard.Suit;
-		card.Rank = drawnCard.Rank;
-		card.Position = GlobalPosition;
-		
-		GetParent().AddChild(card);
+		if (room.cards == null) return;
+
+		foreach (Card card in room.cards)
+		{
+			Card newCard = cardScene.Instantiate<Card>();
+			newCard.Suit = card.Suit;
+			newCard.Rank = card.Rank;
+
+			GetParent().AddChild(newCard);
+		}
 	}
 }

@@ -1,14 +1,22 @@
-[gd_scene load_steps=3 format=3 uid="uid://d25he7tiryu7k"]
+[gd_scene load_steps=5 format=3 uid="uid://d25he7tiryu7k"]
 
 [ext_resource type="Script" uid="uid://dyh2n6ewo124t" path="res://scripts/Card.cs" id="1_ktuci"]
 [ext_resource type="Texture2D" uid="uid://cdjogeib0vw2l" path="res://assets/visuals/card_atlas.tres" id="2_6u4wf"]
+[ext_resource type="Texture2D" uid="uid://cvl1jsbace336" path="res://assets/visuals/cards_tilesheet.png" id="2_ktuci"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kg30u"]
+atlas = ExtResource("2_ktuci")
+region = Rect2(856, 2, 42, 60)
 
 [node name="Card" type="Button"]
 custom_minimum_size = Vector2(126, 180)
-offset_right = 126.0
-offset_bottom = 180.0
+anchors_preset = -1
+anchor_right = 0.109375
+anchor_bottom = 0.277778
+offset_bottom = -1.52588e-05
 flat = true
 script = ExtResource("1_ktuci")
+metadata/_edit_use_anchors_ = true
 
 [node name="Shadow" type="TextureRect" parent="."]
 modulate = Color(0, 0, 0, 1)
@@ -22,7 +30,7 @@ offset_top = 15.0
 offset_bottom = 15.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_6u4wf")
+texture = SubResource("AtlasTexture_kg30u")
 expand_mode = 1
 metadata/_edit_use_anchors_ = true
 

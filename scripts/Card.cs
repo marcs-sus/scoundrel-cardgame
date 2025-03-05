@@ -48,6 +48,7 @@ public partial class Card : Button
 		{ Enums.Rank.Ace, 0 }
 	};
 
+	public Vector2 slotPosition { get; set; }
 	private bool followingMouse = false;
 	private Vector2 dragOffset = Vector2.Zero;
 
@@ -70,13 +71,22 @@ public partial class Card : Button
 
 	public override void _Process(double delta)
 	{
-		FollowMouse();
+		if (followingMouse)
+		{
+			FollowMouse();
+		}
+		else
+		{
+			GlobalPosition = GlobalPosition.Lerp(slotPosition, 0.1f);
+			if (GlobalPosition.DistanceTo(slotPosition) < 2.0f)
+			{
+				Position = slotPosition;
+			}
+		}
 	}
 
 	private void FollowMouse()
 	{
-		if (!followingMouse) return;
-
 		Vector2 mousePos = GetGlobalMousePosition();
 		GlobalPosition = mousePos - dragOffset;
 	}
