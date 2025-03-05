@@ -15,7 +15,7 @@ public partial class Room : Control
 	{
 		for (int i = 0; i < MaxRoomSize; i++)
 		{
-			Marker2D slot = GetNode<Marker2D>($"Slot{i+1}");
+			Marker2D slot = GetNode<Marker2D>($"Slot{i + 1}");
 			slots.Add(slot);
 		}
 	}

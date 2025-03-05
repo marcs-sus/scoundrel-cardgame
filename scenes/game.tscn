@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://5k7qh6kkxvc0"]
+[gd_scene load_steps=5 format=3 uid="uid://5k7qh6kkxvc0"]
 
+[ext_resource type="Script" uid="uid://c30tqrjxcbs4t" path="res://scripts/Game.cs" id="1_lbhrr"]
 [ext_resource type="PackedScene" uid="uid://dbaaefosuej74" path="res://scenes/room.tscn" id="2_lnu2h"]
 [ext_resource type="PackedScene" uid="uid://cjimxgg0y7iiy" path="res://scenes/deck.tscn" id="2_yqjtg"]
+[ext_resource type="Script" uid="uid://h7jwtagvmljf" path="res://scripts/Player.cs" id="3_lnu2h"]
 
 [node name="Game" type="Control"]
 layout_mode = 3
@@ -10,26 +12,36 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_lbhrr")
+
+[node name="Player" type="Node" parent="."]
+script = ExtResource("3_lnu2h")
+
+[node name="HealthLabel" type="Label" parent="Player"]
+custom_minimum_size = Vector2(100, 50)
+offset_left = 125.0
+offset_top = 400.0
+offset_right = 225.0
+offset_bottom = 450.0
+theme_override_font_sizes/font_size = 32
+text = "20/20"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Deck" parent="." instance=ExtResource("2_yqjtg")]
 layout_mode = 1
-anchor_left = 0.119792
-anchor_top = 0.231481
-anchor_right = 0.244792
-anchor_bottom = 0.537037
-offset_top = 1.52588e-05
-grow_horizontal = 1
+anchor_left = 0.0868056
+anchor_top = 0.154321
+anchor_right = 0.211806
+anchor_bottom = 0.459877
 metadata/_edit_use_anchors_ = true
 
 [node name="Room" parent="." instance=ExtResource("2_lnu2h")]
 layout_mode = 1
-anchor_left = 0.272569
-anchor_top = 0.157407
-anchor_right = 0.967014
-anchor_bottom = 0.62037
-grow_horizontal = 0
-grow_vertical = 2
-metadata/_edit_use_anchors_ = true
+anchor_left = 0.260417
+anchor_top = 0.154321
+anchor_right = 0.78125
+anchor_bottom = 0.154321
 
 [node name="Background" type="ColorRect" parent="."]
 z_index = -100

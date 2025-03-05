@@ -80,6 +80,7 @@ public partial class Deck : Control
 			Card newCard = cardScene.Instantiate<Card>();
 			newCard.Suit = card.Suit;
 			newCard.Rank = card.Rank;
+			newCard.slotPosition = card.slotPosition;
 
 			GetParent().AddChild(newCard);
 		}

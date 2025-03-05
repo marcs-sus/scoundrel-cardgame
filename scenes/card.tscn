@@ -11,9 +11,14 @@ region = Rect2(856, 2, 42, 60)
 [node name="Card" type="Button"]
 custom_minimum_size = Vector2(126, 180)
 anchors_preset = -1
-anchor_right = 0.109375
-anchor_bottom = 0.277778
-offset_bottom = -1.52588e-05
+anchor_left = 0.055
+anchor_top = 0.139
+anchor_right = 0.055
+anchor_bottom = 0.139
+offset_left = -63.36
+offset_top = -90.072
+offset_right = 62.64
+offset_bottom = 89.9281
 flat = true
 script = ExtResource("1_ktuci")
 metadata/_edit_use_anchors_ = true

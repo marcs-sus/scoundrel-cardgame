@@ -3,20 +3,21 @@
 [ext_resource type="Script" uid="uid://blw6wqv5wx7sn" path="res://scripts/Room.cs" id="1_36trf"]
 
 [node name="Room" type="Control"]
-custom_minimum_size = Vector2(800, 300)
+custom_minimum_size = Vector2(600, 0)
 layout_mode = 3
-anchor_right = 0.694444
-anchor_bottom = 0.462963
+anchor_right = 0.520833
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_36trf")
+metadata/_edit_use_anchors_ = true
 
 [node name="Slot1" type="Marker2D" parent="."]
-position = Vector2(100, 150)
 
 [node name="Slot2" type="Marker2D" parent="."]
-position = Vector2(300, 150)
+position = Vector2(200, 0)
 
 [node name="Slot3" type="Marker2D" parent="."]
-position = Vector2(500, 150)
+position = Vector2(400, 0)
 
 [node name="Slot4" type="Marker2D" parent="."]
-position = Vector2(700, 150)
+position = Vector2(600, 1)
