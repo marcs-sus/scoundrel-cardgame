@@ -1,21 +1,21 @@
-[gd_scene load_steps=5 format=3 uid="uid://cjimxgg0y7iiy"]
+[gd_scene load_steps=5 format=3 uid="uid://c05xdr4fwa0t0"]
 
-[ext_resource type="Script" uid="uid://cnithodf6n306" path="res://scripts/Deck.cs" id="1_gdbsr"]
-[ext_resource type="Texture2D" uid="uid://bd730uw1y2qqt" path="res://assets/visuals/cards_pile.png" id="1_sdhao"]
-[ext_resource type="Texture2D" uid="uid://cvl1jsbace336" path="res://assets/visuals/cards_tilesheet.png" id="2_gdbsr"]
+[ext_resource type="Script" uid="uid://b0elktbc4y3ee" path="res://scripts/DiscardPile.cs" id="1_844um"]
+[ext_resource type="Texture2D" uid="uid://cvl1jsbace336" path="res://assets/visuals/cards_tilesheet.png" id="2_coum4"]
+[ext_resource type="Texture2D" uid="uid://bd730uw1y2qqt" path="res://assets/visuals/cards_pile.png" id="3_xgywl"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_er72m"]
-atlas = ExtResource("2_gdbsr")
+atlas = ExtResource("2_coum4")
 region = Rect2(856, 2, 42, 60)
 
-[node name="Deck" type="Control"]
+[node name="DiscardPile" type="Control"]
 custom_minimum_size = Vector2(144, 198)
 layout_mode = 3
 anchor_right = 0.125
 anchor_bottom = 0.305556
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_gdbsr")
+script = ExtResource("1_844um")
 
 [node name="Shadow" type="TextureRect" parent="."]
 modulate = Color(0, 0, 0, 1)
@@ -30,6 +30,7 @@ offset_top = 15.0
 offset_bottom = 15.0
 texture = SubResource("AtlasTexture_er72m")
 expand_mode = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="PileTexture" type="TextureRect" parent="."]
 layout_mode = 1
@@ -38,5 +39,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("1_sdhao")
+texture = ExtResource("3_xgywl")
 expand_mode = 1
+flip_h = true

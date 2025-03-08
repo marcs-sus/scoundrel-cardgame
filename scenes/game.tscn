@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://5k7qh6kkxvc0"]
+[gd_scene load_steps=6 format=3 uid="uid://5k7qh6kkxvc0"]
 
 [ext_resource type="Script" uid="uid://c30tqrjxcbs4t" path="res://scripts/Game.cs" id="1_lbhrr"]
 [ext_resource type="PackedScene" uid="uid://dbaaefosuej74" path="res://scenes/room.tscn" id="2_lnu2h"]
 [ext_resource type="PackedScene" uid="uid://cjimxgg0y7iiy" path="res://scenes/deck.tscn" id="2_yqjtg"]
 [ext_resource type="Script" uid="uid://h7jwtagvmljf" path="res://scripts/Player.cs" id="3_lnu2h"]
+[ext_resource type="PackedScene" uid="uid://c05xdr4fwa0t0" path="res://scenes/discard_pile.tscn" id="5_iywne"]
 
 [node name="Game" type="Control"]
 layout_mode = 3
@@ -45,6 +46,16 @@ anchor_bottom = 0.154321
 offset_left = 3.0
 offset_right = 3.0
 
+[node name="DiscardPile" parent="." instance=ExtResource("5_iywne")]
+layout_mode = 1
+anchor_left = 0.802951
+anchor_top = 0.540123
+anchor_right = 0.927951
+anchor_bottom = 0.845679
+grow_horizontal = 1
+grow_vertical = 1
+metadata/_edit_use_anchors_ = true
+
 [node name="Background" type="ColorRect" parent="."]
 z_index = -100
 layout_mode = 1
@@ -58,7 +69,10 @@ color = Color(0.192157, 0.580392, 0.827451, 1)
 
 [node name="EquippedWeapon" type="Control" parent="."]
 layout_mode = 1
-anchors_preset = 0
+anchor_left = 0.303819
+anchor_top = 0.58642
+anchor_right = 0.303819
+anchor_bottom = 0.58642
+metadata/_edit_use_anchors_ = true
 
 [node name="WeaponSlot" type="Marker2D" parent="EquippedWeapon"]
-position = Vector2(450, 380)
