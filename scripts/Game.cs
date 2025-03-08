@@ -9,7 +9,7 @@ public partial class Game : Control
 	private Room room => GetNode<Room>("Room");
 	private DiscardPile discardPile => GetNode<DiscardPile>("DiscardPile");
 	private Player player => GetNode<Player>("Player");
-	private Marker2D weaponSlot => GetNode<Marker2D>("EquippedWeapon/WeaponSlot");
+	private Control equippedWeapon => GetNode<Control>("EquippedWeapon");
 
 	public override void _Ready()
 	{
@@ -74,9 +74,23 @@ public partial class Game : Control
 
 	private void CardWeapon(Card card)
 	{
-		//TODO
+		if (player.EquippedWeapon != null)
+		{
+			GD.Print($"Discarding previous weapon: {player.EquippedWeapon.Name}.");
 
-		discardPile.DiscardCard(card);
+			discardPile.DiscardCard(player.EquippedWeapon);
+		}
+
+		if (card.GetParent() != null)
+			card.GetParent().RemoveChild(card);
+
+		card.slotPosition = equippedWeapon.GetNode<Marker2D>("WeaponSlot").GlobalPosition;
+		equippedWeapon.AddChild(card);
+
+		player.EquippedWeapon = card;
+		player.LastSlainMonsterValue = null;
+
+		GD.Print($"Equipped new weapon: {card.Name}.");
 	}
 
 	private void CardMonster(Card card)
