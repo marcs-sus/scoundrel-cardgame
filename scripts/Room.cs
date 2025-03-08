@@ -37,17 +37,5 @@ public partial class Room : Control
 			cards.Add(cardNode);
 			GetNode($"Cards").AddChild(cardNode);
 		}
-
-		/* int i = 0;
-		while (cards.Count < MaxRoomSize && deck.CardsRemaining > 0)
-		{
-			Card drawnCard = deck.DrawCard(slots[i].GlobalPosition);
-			Card cardNode = Card.NewCard(drawnCard.Suit, drawnCard.Rank, drawnCard.slotPosition);
-
-			cards.Add(cardNode);
-			slots[i].AddChild(cardNode);
-
-			i++;
-		} */
 	}
 }
