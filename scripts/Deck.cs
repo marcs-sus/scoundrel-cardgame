@@ -9,8 +9,6 @@ public partial class Deck : Control
 	public int CardsRemaining { get { return _cards.Count; } }
 	private PackedScene cardScene = GD.Load<PackedScene>("res://scenes/card.tscn");
 
-	private Room room => GetNode<Room>("../Room");
-
 	public override void _Ready()
 	{
 		InitializeDeck(_cards);
@@ -50,15 +48,16 @@ public partial class Deck : Control
 		}
 	}
 
-	public Card DrawCard()
+	public Card DrawCard(Vector2 slot)
 	{
 		if (_cards.Count == 0)
 		{
 			GD.Print("Empty deck!");
 			return null;
 		}
-
 		Card card = _cards[0];
+		card.slotPosition = slot;
+		
 		_cards.RemoveAt(0);
 		return card;
 	}
@@ -66,23 +65,5 @@ public partial class Deck : Control
 	public void AddCard(Card card)
 	{
 		_cards.Add(card);
-	}
-
-	private void _OnDrawPressed()
-	{
-		GD.Print("Drawn a room!");
-		room.DrawRoom(this);
-
-		if (room.cards == null) return;
-
-		foreach (Card card in room.cards)
-		{
-			Card newCard = cardScene.Instantiate<Card>();
-			newCard.Suit = card.Suit;
-			newCard.Rank = card.Rank;
-			newCard.slotPosition = card.slotPosition;
-
-			GetParent().AddChild(newCard);
-		}
 	}
 }

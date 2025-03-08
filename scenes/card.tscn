@@ -21,6 +21,7 @@ offset_right = 62.64
 offset_bottom = 89.9281
 flat = true
 script = ExtResource("1_ktuci")
+Rank = 2
 metadata/_edit_use_anchors_ = true
 
 [node name="Shadow" type="TextureRect" parent="."]

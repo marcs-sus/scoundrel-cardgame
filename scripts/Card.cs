@@ -52,7 +52,18 @@ public partial class Card : Button
 	private bool followingMouse = false;
 	private Vector2 dragOffset = Vector2.Zero;
 
+	private readonly static PackedScene cardScene = GD.Load<PackedScene>("res://scenes/card.tscn");
 	private TextureRect cardTexture => GetNode<TextureRect>("CardTexture");
+	private Game game => GetNode<Game>("/root/Game");
+
+	public static Card NewCard(Enums.Suit suit, Enums.Rank rank, Vector2 slotPosition)
+	{
+		Card card = cardScene.Instantiate<Card>();
+		card.Suit = suit;
+		card.Rank = rank;
+		card.slotPosition = slotPosition;
+		return card;
+	}
 
 	public override void _Ready()
 	{
@@ -95,6 +106,12 @@ public partial class Card : Button
 	{
 		if (!(@event is InputEventMouseButton mouseEvent)) return;
 		if (mouseEvent.ButtonIndex != MouseButton.Left) return;
+
+		if (mouseEvent.DoubleClick)
+		{
+			game.OnCardChosen(this);
+			return;
+		}
 
 		if (mouseEvent.Pressed)
 		{

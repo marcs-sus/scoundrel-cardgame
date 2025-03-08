@@ -53,3 +53,10 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 color = Color(0.192157, 0.580392, 0.827451, 1)
+
+[node name="EquippedWeapon" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 0
+
+[node name="WeaponSlot" type="Marker2D" parent="EquippedWeapon"]
+position = Vector2(450, 380)

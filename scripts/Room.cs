@@ -22,26 +22,16 @@ public partial class Room : Control
 
 	public void DrawRoom(Deck deck)
 	{
+		int i = 0;
 		while (cards.Count < MaxRoomSize && deck.CardsRemaining > 0)
 		{
-			cards.Add(deck.DrawCard());
-		}
+			Card card = deck.DrawCard(slots[i].GlobalPosition);
+			Card cardNode = Card.NewCard(card.Suit, card.Rank, card.slotPosition);
 
-		AssignCards(cards);
-	}
+			cards.Add(card);
+			AddChild(cardNode);
 
-	public void AssignCards(List<Card> cards)
-	{
-		if (cards.Count != MaxRoomSize)
-		{
-			GD.PrintErr("Room require 4 cards!");
-			return;
-		}
-
-		for (int i = 0; i < MaxRoomSize; i++)
-		{
-			Card card = cards[i];
-			card.slotPosition = slots[i].GlobalPosition;
+			i++;
 		}
 	}
 }
