@@ -38,10 +38,12 @@ metadata/_edit_use_anchors_ = true
 
 [node name="Room" parent="." instance=ExtResource("2_lnu2h")]
 layout_mode = 1
-anchor_left = 0.260417
+anchor_left = 0.257813
 anchor_top = 0.154321
-anchor_right = 0.78125
+anchor_right = 0.778646
 anchor_bottom = 0.154321
+offset_left = 3.0
+offset_right = 3.0
 
 [node name="Background" type="ColorRect" parent="."]
 z_index = -100

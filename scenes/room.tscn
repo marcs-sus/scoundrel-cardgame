@@ -11,13 +11,22 @@ grow_vertical = 2
 script = ExtResource("1_36trf")
 metadata/_edit_use_anchors_ = true
 
-[node name="Slot1" type="Marker2D" parent="."]
+[node name="Slots" type="Control" parent="."]
+anchors_preset = 0
 
-[node name="Slot2" type="Marker2D" parent="."]
+[node name="Slot1" type="Marker2D" parent="Slots"]
+position = Vector2(-0.000183105, 0)
+
+[node name="Slot2" type="Marker2D" parent="Slots"]
 position = Vector2(200, 0)
 
-[node name="Slot3" type="Marker2D" parent="."]
+[node name="Slot3" type="Marker2D" parent="Slots"]
 position = Vector2(400, 0)
 
-[node name="Slot4" type="Marker2D" parent="."]
+[node name="Slot4" type="Marker2D" parent="Slots"]
 position = Vector2(600, 1)
+
+[node name="Cards" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0

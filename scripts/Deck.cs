@@ -57,7 +57,7 @@ public partial class Deck : Control
 		}
 		Card card = _cards[0];
 		card.slotPosition = slot;
-		
+
 		_cards.RemoveAt(0);
 		return card;
 	}
