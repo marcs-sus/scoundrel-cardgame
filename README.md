@@ -1,20 +1,24 @@
 # Scoundrel Video Game
 
-This is an adaptation of the Scoundrel card game ruleset, a playing cards dungeon crawler rogue-like
+This is a digital adaptation of the **Scoundrel** card game, a dungeon-crawling roguelike played with a standard deck of 52 playing cards.
 
-## The game
+## The Game
 
-Scoundrel is a playing cards game ruleset, originally created by Zach Gage and Kurt Bieg.
+Scoundrel is a card game ruleset originally created by **Zach Gage** and **Kurt Bieg**.  
+This project reimagines Scoundrel as a **digital game**, faithfully adapting its mechanics using the **Godot Engine with .NET**.
 
-Inspired by the original playing cards, this project consists on a digitalization and adaptation of the rules to a full game, made in Godot using its .NET kit.
+## Console Version
+
+Before developing this version, I created a **console-based adaptation** that implements all core game mechanics.  
+You can find it in [this repository](https://github.com/marcs-sus/scoundrel-ConsoleGame).
 
 ## Original Rules
 
-For more information on the original game rules, please check out the `OriginalRules.pdf` file included in this repository.
+For more details on the original game rules, refer to the [`OriginalRules.pdf`](./OriginalRules.pdf) file included in this repository.
 
 ## Features
 
-- GUI-based gameplay
-- 52 playing cards structure organization
-- Faithful adaptation of the original game mechanics
-- Godot Engine with .NET kit implementation
+- **Graphical user interface** for an enhanced gameplay experience
+- **Faithful recreation** of the original mechanics in a digital format
+- **52-card dungeon-crawling system** based on the classic deck structure
+- **Developed in Godot** using its **.NET framework**
