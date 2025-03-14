@@ -4,7 +4,19 @@ using ScoundrelGame;
 
 public partial class Player : Node
 {
-	public int Health { get; set; } = 20;
+	private int HP = 20;
+	public int Health
+	{
+		get => HP;
+		set
+		{
+			if (HP != value)
+			{
+				HP = value;
+				UpdateHealthLabel();
+			}
+		}
+	}
 	public int MaxHealth { get; set; } = 20;
 	public Card EquippedWeapon { get; set; } = null;
 	public Card LastSlainMonster { get; set; } = null;
@@ -13,7 +25,12 @@ public partial class Player : Node
 
 	private Label healthLabel => GetNode<Label>("HealthLabel");
 
-	public override void _Process(double delta)
+	public override void _Ready()
+	{
+		UpdateHealthLabel();
+	}
+
+	public void UpdateHealthLabel()
 	{
 		healthLabel.Text = $"{Health}/{MaxHealth}";
 	}

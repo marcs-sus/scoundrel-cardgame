@@ -19,9 +19,9 @@ public partial class Game : Control
 		PlayerTurn();
 	}
 
-	public override void _Process(double delta)
+	private void UpdateAvoidButton()
 	{
-		avoidBtn.Disabled = !(!player.previousRoomAvoided && room.cards.Count == room.MaxRoomSize);
+		avoidBtn.Disabled = !(room.cards.Count == room.MaxRoomSize && !player.previousRoomAvoided);
 	}
 
 	private void PlayerTurn()
@@ -29,20 +29,22 @@ public partial class Game : Control
 		GD.Print("Starting new turn!");
 
 		player.healthPotionUsed = false;
+		player.previousRoomAvoided = false;
+
 		room.DrawRoom(deck);
+		UpdateAvoidButton();
 	}
 
 	private void _OnAvoidPressed()
 	{
 		GD.Print("Avoiding combat!");
 
-		foreach (Card card in room.cards)
+		foreach (Card card in room.cards.ToList())
 		{
 			card.GetParent()?.RemoveChild(card);
-
-			// card.Visible = false;
 			deck.AddCard(card);
 		}
+
 		room.cards.Clear();
 		player.previousRoomAvoided = true;
 
@@ -72,11 +74,10 @@ public partial class Game : Control
 
 		GD.Print($"Cards left in room: {room.cards.Count}");
 
-		if (room.cards.Count == 1)
-		{
-			player.previousRoomAvoided = false;
+		if (room.cards.Count == room.RefreshAt)
 			PlayerTurn();
-		}
+		else
+			UpdateAvoidButton();
 	}
 
 	private void CardHealth(Card card)
@@ -155,8 +156,7 @@ public partial class Game : Control
 
 		player.LastSlainMonster = card;
 
-		if (card.GetParent() != null)
-			card.GetParent().RemoveChild(card);
+		card.GetParent()?.RemoveChild(card);
 
 		card.slotPosition = equippedWeapon.GetNode<Marker2D>("Slots/LastMonster").GlobalPosition;
 		equippedWeapon.GetNode<Control>("Monster").AddChild(card);
