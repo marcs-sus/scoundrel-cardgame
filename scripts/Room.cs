@@ -7,7 +7,8 @@ public partial class Room : Control
 {
 	private List<Marker2D> slots = new List<Marker2D>();
 	public List<Card> cards { get; private set; } = new List<Card>();
-	public int MaxRoomSize => 4;
+	[Export] public int MaxRoomSize = 4;
+	[Export] public int RefreshAt = 1;
 
 	private Deck deck => GetNode<Deck>("../Deck");
 
@@ -25,9 +26,7 @@ public partial class Room : Control
 		GD.Print("Drawing new room!");
 
 		for (int i = 0; i < cards.Count; i++)
-		{
 			cards[i].slotPosition = slots[i].GlobalPosition;
-		}
 
 		for (int i = cards.Count; i < MaxRoomSize && deck.CardsRemaining > 0; i++)
 		{

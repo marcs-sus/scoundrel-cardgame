@@ -10,12 +10,9 @@ public partial class DiscardPile : Control
 
 	public void DiscardCard(Card card)
 	{
-		if (card.GetParent() != null)
-		{
-			card.GetParent().RemoveChild(card);
-			card.slotPosition = Position;
-		}
+		card.GetParent()?.RemoveChild(card);
 
+		card.slotPosition = Position;
 		discardPile.Add(card);
 
 		AddChild(card); // Optional visualization effect
@@ -24,9 +21,8 @@ public partial class DiscardPile : Control
 	public void ClearDiscardPile()
 	{
 		foreach (Card card in discardPile)
-		{
 			card.QueueFree();
-		}
+
 		discardPile.Clear();
 	}
 }
