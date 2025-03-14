@@ -88,7 +88,7 @@ public partial class Card : Button
 		}
 		else
 		{
-			GlobalPosition = GlobalPosition.Lerp(slotPosition, 0.1f);
+			GlobalPosition = GlobalPosition.Lerp(slotPosition, 0.05f);
 			if (GlobalPosition.DistanceTo(slotPosition) < 2.0f)
 			{
 				GlobalPosition = slotPosition;

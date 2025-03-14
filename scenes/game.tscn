@@ -1,10 +1,19 @@
-[gd_scene load_steps=6 format=3 uid="uid://5k7qh6kkxvc0"]
+[gd_scene load_steps=8 format=3 uid="uid://5k7qh6kkxvc0"]
 
 [ext_resource type="Script" uid="uid://c30tqrjxcbs4t" path="res://scripts/Game.cs" id="1_lbhrr"]
 [ext_resource type="PackedScene" uid="uid://dbaaefosuej74" path="res://scenes/room.tscn" id="2_lnu2h"]
 [ext_resource type="PackedScene" uid="uid://cjimxgg0y7iiy" path="res://scenes/deck.tscn" id="2_yqjtg"]
 [ext_resource type="Script" uid="uid://h7jwtagvmljf" path="res://scripts/Player.cs" id="3_lnu2h"]
 [ext_resource type="PackedScene" uid="uid://c05xdr4fwa0t0" path="res://scenes/discard_pile.tscn" id="5_iywne"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iywne"]
+bg_color = Color(0.141176, 0.458824, 0.658824, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_iywne"]
 
 [node name="Game" type="Control"]
 layout_mode = 3
@@ -56,6 +65,34 @@ grow_horizontal = 1
 grow_vertical = 1
 metadata/_edit_use_anchors_ = true
 
+[node name="EquippedWeapon" type="Control" parent="."]
+layout_mode = 1
+anchor_left = 0.303819
+anchor_top = 0.58642
+anchor_right = 0.303819
+anchor_bottom = 0.58642
+metadata/_edit_use_anchors_ = true
+
+[node name="Slots" type="Control" parent="EquippedWeapon"]
+anchors_preset = 0
+offset_right = 75.0
+metadata/_edit_use_anchors_ = true
+
+[node name="WeaponSlot" type="Marker2D" parent="EquippedWeapon/Slots"]
+
+[node name="LastMonster" type="Marker2D" parent="EquippedWeapon/Slots"]
+position = Vector2(75, 0)
+
+[node name="Weapon" type="Control" parent="EquippedWeapon"]
+anchors_preset = 0
+
+[node name="Monster" type="Control" parent="EquippedWeapon"]
+z_index = 2
+anchors_preset = 0
+offset_left = 75.0
+offset_right = 75.0
+metadata/_edit_use_anchors_ = true
+
 [node name="Background" type="ColorRect" parent="."]
 z_index = -100
 layout_mode = 1
@@ -65,14 +102,40 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-color = Color(0.192157, 0.580392, 0.827451, 1)
+color = Color(0.176471, 0.576471, 0.823529, 1)
 
-[node name="EquippedWeapon" type="Control" parent="."]
+[node name="FightOptions" type="PanelContainer" parent="."]
 layout_mode = 1
-anchor_left = 0.303819
-anchor_top = 0.58642
-anchor_right = 0.303819
-anchor_bottom = 0.58642
+anchors_preset = -1
+anchor_left = 0.564236
+anchor_top = 0.578704
+anchor_right = 0.720486
+anchor_bottom = 0.726852
+offset_bottom = -3.05176e-05
+theme_override_styles/panel = SubResource("StyleBoxFlat_iywne")
 metadata/_edit_use_anchors_ = true
 
-[node name="WeaponSlot" type="Marker2D" parent="EquippedWeapon"]
+[node name="MarginContainer" type="MarginContainer" parent="FightOptions"]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="Options" type="VBoxContainer" parent="FightOptions/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 5
+alignment = 1
+
+[node name="Barehanded" type="Button" parent="FightOptions/MarginContainer/Options"]
+layout_mode = 2
+toggle_mode = true
+button_pressed = true
+button_group = SubResource("ButtonGroup_iywne")
+text = "Barehanded"
+
+[node name="WithWeapon" type="Button" parent="FightOptions/MarginContainer/Options"]
+layout_mode = 2
+toggle_mode = true
+button_group = SubResource("ButtonGroup_iywne")
+text = "With weapon"

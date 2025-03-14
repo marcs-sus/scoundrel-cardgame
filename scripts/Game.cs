@@ -10,6 +10,8 @@ public partial class Game : Control
 	private DiscardPile discardPile => GetNode<DiscardPile>("DiscardPile");
 	private Player player => GetNode<Player>("Player");
 	private Control equippedWeapon => GetNode<Control>("EquippedWeapon");
+	private Button barehandedBtn => GetNode<Button>("FightOptions/MarginContainer/Options/Barehanded");
+	private Button withWeaponBtn => GetNode<Button>("FightOptions/MarginContainer/Options/WithWeapon");
 
 	public override void _Ready()
 	{
@@ -79,24 +81,69 @@ public partial class Game : Control
 			GD.Print($"Discarding previous weapon: {player.EquippedWeapon.Name}.");
 
 			discardPile.DiscardCard(player.EquippedWeapon);
+
+			if (player.LastSlainMonster != null)
+				discardPile.DiscardCard(player.LastSlainMonster);
 		}
 
 		if (card.GetParent() != null)
 			card.GetParent().RemoveChild(card);
 
-		card.slotPosition = equippedWeapon.GetNode<Marker2D>("WeaponSlot").GlobalPosition;
-		equippedWeapon.AddChild(card);
+		card.slotPosition = equippedWeapon.GetNode<Marker2D>("Slots/WeaponSlot").GlobalPosition;
+		equippedWeapon.GetNode<Control>("Weapon").AddChild(card);
 
 		player.EquippedWeapon = card;
-		player.LastSlainMonsterValue = null;
+		player.LastSlainMonster = null;
 
 		GD.Print($"Equipped new weapon: {card.Name}.");
 	}
 
 	private void CardMonster(Card card)
 	{
-		//TODO
+		if (player.EquippedWeapon == null || (player.LastSlainMonster != null && player.LastSlainMonster.Value < card.Value))
+		{
+			int damage = card.Value;
 
-		discardPile.DiscardCard(card);
+			GD.Print("Fighting barehanded!");
+			GD.Print($"Monster: {card.CardName} (Value: {card.Value})");
+			GD.Print($"Damage Taken: {damage}");
+
+			player.Health -= damage;
+			discardPile.DiscardCard(card);
+			return;
+		}
+
+		if (withWeaponBtn.ButtonPressed)
+		{
+			int damage = Math.Max(0, card.Value - player.EquippedWeapon.Value);
+
+			player.Health -= damage;
+
+			if (player.LastSlainMonster != null)
+				discardPile.DiscardCard(player.LastSlainMonster);
+			player.LastSlainMonster = card;
+
+			GD.Print($"Fought with weapon: {player.EquippedWeapon.Name}");
+			GD.Print($"Monster: {card.CardName} (Value: {card.Value})");
+			GD.Print($"Damage Taken: {damage}");
+
+			if (card.GetParent() != null)
+				card.GetParent().RemoveChild(card);
+
+			card.slotPosition = equippedWeapon.GetNode<Marker2D>("Slots/LastMonster").GlobalPosition;
+			equippedWeapon.GetNode<Control>("Monster").AddChild(card);
+		}
+		else if (barehandedBtn.ButtonPressed)
+		{
+			int damage = card.Value;
+
+			player.Health -= damage;
+
+			GD.Print("Fought barehanded");
+			GD.Print($"Monster: {card.CardName} (Value: {card.Value})");
+			GD.Print($"Damage Taken: {damage}");
+
+			discardPile.DiscardCard(card);
+		}
 	}
 }
