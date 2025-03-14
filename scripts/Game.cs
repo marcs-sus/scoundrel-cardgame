@@ -2,6 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 using ScoundrelGame;
+using System.Linq;
 
 public partial class Game : Control
 {
@@ -10,12 +11,17 @@ public partial class Game : Control
 	private DiscardPile discardPile => GetNode<DiscardPile>("DiscardPile");
 	private Player player => GetNode<Player>("Player");
 	private Control equippedWeapon => GetNode<Control>("EquippedWeapon");
-	private Button barehandedBtn => GetNode<Button>("FightOptions/MarginContainer/Options/Barehanded");
 	private Button withWeaponBtn => GetNode<Button>("FightOptions/MarginContainer/Options/WithWeapon");
+	private Button avoidBtn => GetNode<Button>("AvoidOption/MarginContainer/Avoid");
 
 	public override void _Ready()
 	{
 		PlayerTurn();
+	}
+
+	public override void _Process(double delta)
+	{
+		avoidBtn.Disabled = !(!player.previousRoomAvoided && room.cards.Count == room.MaxRoomSize);
 	}
 
 	private void PlayerTurn()
@@ -24,6 +30,23 @@ public partial class Game : Control
 
 		player.healthPotionUsed = false;
 		room.DrawRoom(deck);
+	}
+
+	private void _OnAvoidPressed()
+	{
+		GD.Print("Avoiding combat!");
+
+		foreach (Card card in room.cards)
+		{
+			card.GetParent()?.RemoveChild(card);
+
+			// card.Visible = false;
+			deck.AddCard(card);
+		}
+		room.cards.Clear();
+		player.previousRoomAvoided = true;
+
+		PlayerTurn();
 	}
 
 	public void OnCardChosen(Card card)
@@ -50,7 +73,10 @@ public partial class Game : Control
 		GD.Print($"Cards left in room: {room.cards.Count}");
 
 		if (room.cards.Count == 1)
+		{
+			player.previousRoomAvoided = false;
 			PlayerTurn();
+		}
 	}
 
 	private void CardHealth(Card card)
@@ -136,4 +162,3 @@ public partial class Game : Control
 		equippedWeapon.GetNode<Control>("Monster").AddChild(card);
 	}
 }
-

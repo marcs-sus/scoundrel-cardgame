@@ -9,6 +9,7 @@ public partial class Player : Node
 	public Card EquippedWeapon { get; set; } = null;
 	public Card LastSlainMonster { get; set; } = null;
 	public bool healthPotionUsed { get; set; } = false;
+	public bool previousRoomAvoided { get; set; } = false;
 
 	private Label healthLabel => GetNode<Label>("HealthLabel");
 
