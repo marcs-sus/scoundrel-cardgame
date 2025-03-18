@@ -1,10 +1,14 @@
 using Godot;
 using System;
 
+/// <summary>
+/// Auto-loaded global enums for the game
+/// </summary>
 namespace ScoundrelGame
 {
     public partial class Enums : Node
     {
+        // Enums or the card Suits
         public enum Suit
         {
             Hearts,
@@ -13,6 +17,7 @@ namespace ScoundrelGame
             Spades
         }
 
+        // Enums or the card Ranks
         public enum Rank
         {
             Two = 2,
@@ -30,6 +35,7 @@ namespace ScoundrelGame
             Ace = 14
         }
 
+        // Enums for the card types, according Scoundrel game
         public enum CardType
         {
             Monster,

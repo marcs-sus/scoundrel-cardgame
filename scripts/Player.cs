@@ -2,11 +2,15 @@ using Godot;
 using System;
 using ScoundrelGame;
 
+/// <summary>
+/// Player classe to handle player stats
+/// </summary>
 public partial class Player : Node
 {
 	private int HP = 20;
 	public int Health
 	{
+		// Update HP and health label when Health is set
 		get => HP;
 		set
 		{
@@ -31,6 +35,7 @@ public partial class Player : Node
 
 	public void UpdateHealthLabel()
 	{
+		// Update health label text
 		healthLabel.Text = $"{Health}/{MaxHealth}";
 	}
 }

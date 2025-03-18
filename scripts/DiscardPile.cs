@@ -3,6 +3,9 @@ using System;
 using System.Collections.Generic;
 using ScoundrelGame;
 
+/// <summary>
+/// Discard pile class to handle the discarded cards
+/// </summary>
 public partial class DiscardPile : Control
 {
 	private List<Card> discardPile = new List<Card>();
@@ -12,14 +15,16 @@ public partial class DiscardPile : Control
 	{
 		card.GetParent()?.RemoveChild(card);
 
+		// Add the card to the discard pile
 		card.slotPosition = Position;
 		discardPile.Add(card);
 
 		AddChild(card); // Optional visualization effect
 	}
 
-	public void ClearDiscardPile()
+	public void ClearDiscardPile() // Optional
 	{
+		// Remove all cards from the discard pile
 		foreach (Card card in discardPile)
 			card.QueueFree();
 

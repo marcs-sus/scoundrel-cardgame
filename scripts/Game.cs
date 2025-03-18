@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using ScoundrelGame;
 
+/// <summary>
+/// Main game logic script
+/// </summary>
 public partial class Game : Control
 {
 	private Deck deck => GetNode<Deck>("Deck");
@@ -16,6 +19,7 @@ public partial class Game : Control
 
 	public override void _Ready()
 	{
+		// Start the game with a new turn
 		PlayerTurn(false);
 	}
 
@@ -23,9 +27,12 @@ public partial class Game : Control
 	{
 		GD.Print("Starting new turn!");
 
+		// Reset player potion used flag, only 1 may be used per turn
 		player.healthPotionUsed = false;
 
 		room.DrawRoom(deck);
+
+		// Update avoid button disabled state
 		avoidBtn.Disabled = !(room.cards.Count == room.MaxRoomSize && !previousRoomAvoided);
 	}
 
@@ -33,6 +40,7 @@ public partial class Game : Control
 	{
 		GD.Print("Avoiding combat!");
 
+		// Remove all room cards and add them to the deck
 		foreach (Card card in room.cards.ToList())
 		{
 			card.GetParent()?.RemoveChild(card);
@@ -41,6 +49,7 @@ public partial class Game : Control
 
 		room.cards.Clear();
 
+		// Drawn new cards by starting a new turn
 		PlayerTurn(true);
 	}
 
@@ -48,6 +57,7 @@ public partial class Game : Control
 	{
 		GD.Print($"Card chosen: {card.CardName} : {card.Type}");
 
+		// Handle card based on its type
 		switch (card.Type)
 		{
 			case Enums.CardType.Health:
@@ -67,19 +77,27 @@ public partial class Game : Control
 
 		GD.Print($"Cards left in room: {room.cards.Count}");
 
+		// If a room reaches its minimum size, start a new turn
 		if (room.cards.Count == room.RefreshAt)
 		{
 			PlayerTurn(false);
+		}
+		else
+		{
+			// Update avoid button disabled state
+			avoidBtn.Disabled = !(room.cards.Count == room.MaxRoomSize);
 		}
 	}
 
 	private void CardHealth(Card card)
 	{
+		// Only 1 health potion may be used per turn
 		if (!player.healthPotionUsed)
 		{
 			int heal = card.Value;
 			int previousHealth = player.Health;
 
+			// Ensure health does not exceed max health
 			player.Health = Math.Min(player.MaxHealth, player.Health + heal);
 			player.healthPotionUsed = true;
 
@@ -94,6 +112,7 @@ public partial class Game : Control
 
 	private void CardWeapon(Card card)
 	{
+		// Discard the previously equipped weapon and last slain monster if a weapon is already equipped
 		if (player.EquippedWeapon != null)
 		{
 			GD.Print($"Discarding previous weapon: {player.EquippedWeapon.Name}.");
@@ -104,9 +123,12 @@ public partial class Game : Control
 		}
 
 		card.GetParent()?.RemoveChild(card);
+
+		// Assign the new weapon to the corresponding slot
 		card.slotPosition = equippedWeapon.GetNode<Marker2D>("Slots/WeaponSlot").GlobalPosition;
 		equippedWeapon.GetNode<Control>("Weapon").AddChild(card);
 
+		// Update the player's equipped weapon and reset the last slain monster
 		player.EquippedWeapon = card;
 		player.LastSlainMonster = null;
 
@@ -117,6 +139,7 @@ public partial class Game : Control
 	{
 		bool combatWithWeapon = withWeaponBtn.ButtonPressed && player.EquippedWeapon != null;
 
+		// Handle combat based on choice and/or equipped weapon status
 		if (!combatWithWeapon || (player.LastSlainMonster != null && player.LastSlainMonster.Value < card.Value))
 			BarehandedCombat(card);
 		else
@@ -125,6 +148,7 @@ public partial class Game : Control
 
 	private void BarehandedCombat(Card card)
 	{
+		// Simply subtract the damage from the player's health
 		int damage = card.Value;
 		player.Health -= damage;
 
@@ -137,6 +161,7 @@ public partial class Game : Control
 
 	private void WeaponCombat(Card card)
 	{
+		// Subtract the damage from the player's health, considering the equipped weapon's value
 		int damage = Math.Max(0, card.Value - player.EquippedWeapon.Value);
 		player.Health -= damage;
 
@@ -147,10 +172,12 @@ public partial class Game : Control
 		if (player.LastSlainMonster != null)
 			discardPile.DiscardCard(player.LastSlainMonster);
 
+		// Add the last monster slain to the player weapon
 		player.LastSlainMonster = card;
 
 		card.GetParent()?.RemoveChild(card);
 
+		// Assign the last monster slain to the corresponding slot
 		card.slotPosition = equippedWeapon.GetNode<Marker2D>("Slots/LastMonster").GlobalPosition;
 		equippedWeapon.GetNode<Control>("Monster").AddChild(card);
 	}

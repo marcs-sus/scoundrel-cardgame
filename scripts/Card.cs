@@ -3,6 +3,9 @@ using System;
 using System.Collections.Generic;
 using ScoundrelGame;
 
+/// <summary>
+/// Card classe to handle card properties, events and visuals
+/// </summary>
 public partial class Card : Button
 {
 	[Export] public Enums.Suit Suit { get; set; }
@@ -12,6 +15,7 @@ public partial class Card : Button
 	public int Value => (int)Rank;
 	public Enums.CardType Type
 	{
+		// Return the card type based on the suit
 		get
 		{
 			if (Suit == Enums.Suit.Hearts)
@@ -26,6 +30,7 @@ public partial class Card : Button
 	private const string CARD_ALTAS_PATH = "res://assets/visuals/cards_tilesheet.png";
 	private Dictionary<Enums.Suit, int> suitMap = new Dictionary<Enums.Suit, int>()
 	{
+		// Map the suit to the index in the atlas
 		{ Enums.Suit.Hearts, 0 },
 		{ Enums.Suit.Diamonds, 1 },
 		{ Enums.Suit.Clubs, 2 },
@@ -33,6 +38,7 @@ public partial class Card : Button
 	};
 	private Dictionary<Enums.Rank, int> rankMap = new Dictionary<Enums.Rank, int>()
 	{
+		// Map the rank to the index in the atlas
 		{ Enums.Rank.Two, 1 },
 		{ Enums.Rank.Three, 2 },
 		{ Enums.Rank.Four, 3 },
@@ -58,6 +64,7 @@ public partial class Card : Button
 
 	public static Card NewCard(Enums.Suit suit, Enums.Rank rank, Vector2 slotPosition)
 	{
+		// Create a new card instance
 		Card card = cardScene.Instantiate<Card>();
 		card.Suit = suit;
 		card.Rank = rank;
@@ -67,6 +74,7 @@ public partial class Card : Button
 
 	public override void _Ready()
 	{
+		// Load the card atlas texture
 		Texture2D atlas = (Texture2D)GD.Load(CARD_ALTAS_PATH);
 
 		int suitIndex = suitMap[Suit], rankIndex = rankMap[Rank];
@@ -74,6 +82,7 @@ public partial class Card : Button
 
 		AtlasTexture atlasTexture = new AtlasTexture()
 		{
+			// Define the region in the atlas based on the suit and rank
 			Atlas = atlas,
 			Region = new Rect2(regionX, regionY, ATLAS_CARD_WIDTH, ATLAS_CARD_HEIGHT)
 		};
@@ -88,6 +97,7 @@ public partial class Card : Button
 		}
 		else
 		{
+			// Linearly interpolate the card position to the slot position
 			GlobalPosition = GlobalPosition.Lerp(slotPosition, 0.05f);
 			if (GlobalPosition.DistanceTo(slotPosition) < 2.0f)
 				GlobalPosition = slotPosition;
@@ -96,6 +106,7 @@ public partial class Card : Button
 
 	private void FollowMouse()
 	{
+		// Move the card to the global mouse position
 		Vector2 mousePos = GetGlobalMousePosition();
 		GlobalPosition = mousePos - dragOffset;
 	}
@@ -105,17 +116,21 @@ public partial class Card : Button
 		if (!(@event is InputEventMouseButton mouseEvent)) return;
 		if (mouseEvent.ButtonIndex != MouseButton.Left) return;
 
+		// Handle card events when double-clicked
 		if (mouseEvent.DoubleClick)
 		{
 			game.OnCardChosen(this);
 			return;
 		}
 
+		// Handle card events when clicked
 		if (mouseEvent.Pressed)
 		{
+			// Prevent snap when dragging the card with an offset
 			dragOffset = GetGlobalMousePosition() - GlobalPosition;
 			followingMouse = true;
 
+			// Move the card to the top of the parent node
 			Node parent = GetParent();
 			if (parent != null)
 				parent.MoveChild(this, parent.GetChildCount() - 1);
