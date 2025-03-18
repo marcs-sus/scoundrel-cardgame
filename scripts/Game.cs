@@ -1,8 +1,8 @@
 using Godot;
 using System;
 using System.Collections.Generic;
-using ScoundrelGame;
 using System.Linq;
+using ScoundrelGame;
 
 public partial class Game : Control
 {
@@ -16,23 +16,17 @@ public partial class Game : Control
 
 	public override void _Ready()
 	{
-		PlayerTurn();
+		PlayerTurn(false);
 	}
 
-	private void UpdateAvoidButton()
-	{
-		avoidBtn.Disabled = !(room.cards.Count == room.MaxRoomSize && !player.previousRoomAvoided);
-	}
-
-	private void PlayerTurn()
+	private void PlayerTurn(bool previousRoomAvoided)
 	{
 		GD.Print("Starting new turn!");
 
 		player.healthPotionUsed = false;
-		player.previousRoomAvoided = false;
 
 		room.DrawRoom(deck);
-		UpdateAvoidButton();
+		avoidBtn.Disabled = !(room.cards.Count == room.MaxRoomSize && !previousRoomAvoided);
 	}
 
 	private void _OnAvoidPressed()
@@ -46,9 +40,8 @@ public partial class Game : Control
 		}
 
 		room.cards.Clear();
-		player.previousRoomAvoided = true;
 
-		PlayerTurn();
+		PlayerTurn(true);
 	}
 
 	public void OnCardChosen(Card card)
@@ -75,9 +68,9 @@ public partial class Game : Control
 		GD.Print($"Cards left in room: {room.cards.Count}");
 
 		if (room.cards.Count == room.RefreshAt)
-			PlayerTurn();
-		else
-			UpdateAvoidButton();
+		{
+			PlayerTurn(false);
+		}
 	}
 
 	private void CardHealth(Card card)
