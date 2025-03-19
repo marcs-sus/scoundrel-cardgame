@@ -1,0 +1,101 @@
+[gd_scene load_steps=4 format=3 uid="uid://ckws81utody4h"]
+
+[ext_resource type="Script" uid="uid://heoh3gfy3svf" path="res://scripts/Options.cs" id="1_c2u1v"]
+[ext_resource type="FontFile" uid="uid://b022wxa1lwsav" path="res://assets/fonts/VCR_OSD_MONO_1.001.ttf" id="2_yjkok"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4h3mk"]
+bg_color = Color(0.092295, 0.328546, 0.490337, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[node name="Options" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_c2u1v")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.133333, 0.435294, 0.623529, 1)
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -193.5
+offset_top = 50.0
+offset_right = 193.5
+offset_bottom = 160.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("2_yjkok")
+theme_override_font_sizes/font_size = 80
+text = "Options"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MenuOptions" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -338.0
+offset_top = -98.0
+offset_right = 339.0
+offset_bottom = 177.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_4h3mk")
+
+[node name="MarginContainer" type="MarginContainer" parent="MenuOptions"]
+layout_mode = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 25
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MenuOptions/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+alignment = 1
+
+[node name="Fullscreen" type="CheckButton" parent="MenuOptions/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_yjkok")
+theme_override_font_sizes/font_size = 30
+text = "Fullscreen"
+
+[node name="Volume" type="Label" parent="MenuOptions/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_yjkok")
+theme_override_font_sizes/font_size = 30
+text = "Volume"
+
+[node name="VolumeSlider" type="HSlider" parent="MenuOptions/MarginContainer/VBoxContainer"]
+layout_mode = 2
+min_value = -6.0
+max_value = 6.0
+
+[node name="Back" type="Button" parent="MenuOptions/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("2_yjkok")
+theme_override_font_sizes/font_size = 30
+text = "Back"
+
+[connection signal="toggled" from="MenuOptions/MarginContainer/VBoxContainer/Fullscreen" to="." method="_OnFullscreenToggled"]
+[connection signal="value_changed" from="MenuOptions/MarginContainer/VBoxContainer/VolumeSlider" to="." method="_OnVolumeSliderValueChanged"]
+[connection signal="pressed" from="MenuOptions/MarginContainer/VBoxContainer/Back" to="." method="_OnBackPressed"]

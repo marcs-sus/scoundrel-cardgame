@@ -31,12 +31,12 @@ public partial class Room : Control
 
 		// Assign the cards positions to the slots 
 		for (int i = 0; i < cards.Count; i++)
-			cards[i].slotPosition = slots[i].GlobalPosition;
+			cards[i].slotPosition = slots[i].Position;
 
 		for (int i = cards.Count; i < MaxRoomSize && deck.CardsRemaining > 0; i++)
 		{
 			// Draw a new card
-			Card drawnCard = deck.DrawCard(slots[i].GlobalPosition);
+			Card drawnCard = deck.DrawCard(slots[i].Position);
 			// Create a new card instance from the drawn card
 			Card cardNode = Card.NewCard(drawnCard.Suit, drawnCard.Rank, drawnCard.slotPosition);
 

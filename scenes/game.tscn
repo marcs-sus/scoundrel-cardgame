@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://5k7qh6kkxvc0"]
+[gd_scene load_steps=10 format=3 uid="uid://5k7qh6kkxvc0"]
 
 [ext_resource type="Script" uid="uid://c30tqrjxcbs4t" path="res://scripts/Game.cs" id="1_lbhrr"]
 [ext_resource type="PackedScene" uid="uid://dbaaefosuej74" path="res://scenes/room.tscn" id="2_lnu2h"]
 [ext_resource type="PackedScene" uid="uid://cjimxgg0y7iiy" path="res://scenes/deck.tscn" id="2_yqjtg"]
 [ext_resource type="Script" uid="uid://h7jwtagvmljf" path="res://scripts/Player.cs" id="3_lnu2h"]
+[ext_resource type="FontFile" uid="uid://b022wxa1lwsav" path="res://assets/fonts/VCR_OSD_MONO_1.001.ttf" id="3_p57ef"]
 [ext_resource type="PackedScene" uid="uid://c05xdr4fwa0t0" path="res://scenes/discard_pile.tscn" id="5_iywne"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iywne"]
@@ -40,6 +41,17 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0.176471, 0.576471, 0.823529, 1)
 
+[node name="Exit" type="Button" parent="."]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 32.0
+offset_bottom = 42.0
+theme_override_fonts/font = ExtResource("3_p57ef")
+theme_override_font_sizes/font_size = 32
+text = "X"
+flat = true
+
 [node name="Player" type="Node" parent="."]
 script = ExtResource("3_lnu2h")
 
@@ -49,6 +61,7 @@ offset_left = 125.0
 offset_top = 400.0
 offset_right = 225.0
 offset_bottom = 450.0
+theme_override_fonts/font = ExtResource("3_p57ef")
 theme_override_font_sizes/font_size = 32
 text = "20/20"
 horizontal_alignment = 1
@@ -134,6 +147,9 @@ alignment = 1
 
 [node name="Barehanded" type="Button" parent="FightOptions/MarginContainer/Options"]
 layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("3_p57ef")
+theme_override_font_sizes/font_size = 20
 toggle_mode = true
 button_pressed = true
 button_group = SubResource("ButtonGroup_iywne")
@@ -141,6 +157,9 @@ text = "Barehanded"
 
 [node name="WithWeapon" type="Button" parent="FightOptions/MarginContainer/Options"]
 layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("3_p57ef")
+theme_override_font_sizes/font_size = 20
 toggle_mode = true
 button_group = SubResource("ButtonGroup_iywne")
 text = "With weapon"
@@ -166,6 +185,7 @@ theme_override_constants/margin_bottom = 10
 
 [node name="Avoid" type="Button" parent="AvoidOption/MarginContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("3_p57ef")
 theme_override_font_sizes/font_size = 18
 text = "Avoid"
 alignment = 0

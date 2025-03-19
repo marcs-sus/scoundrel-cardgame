@@ -57,6 +57,7 @@ public partial class Card : Button
 	public Vector2 slotPosition { get; set; }
 	private bool followingMouse = false;
 	private Vector2 dragOffset = Vector2.Zero;
+	public bool interactable { get; set; } = true;
 
 	private readonly static PackedScene cardScene = GD.Load<PackedScene>("res://scenes/card.tscn");
 	private TextureRect cardTexture => GetNode<TextureRect>("CardTexture");
@@ -98,9 +99,9 @@ public partial class Card : Button
 		else
 		{
 			// Linearly interpolate the card position to the slot position
-			GlobalPosition = GlobalPosition.Lerp(slotPosition, 0.05f);
-			if (GlobalPosition.DistanceTo(slotPosition) < 2.0f)
-				GlobalPosition = slotPosition;
+			Position = Position.Lerp(slotPosition, 0.05f);
+			if (Position.DistanceTo(slotPosition) < 2.0f)
+				Position = slotPosition;
 		}
 	}
 
@@ -108,7 +109,7 @@ public partial class Card : Button
 	{
 		// Move the card to the global mouse position
 		Vector2 mousePos = GetGlobalMousePosition();
-		GlobalPosition = mousePos - dragOffset;
+		Position = mousePos - dragOffset;
 	}
 
 	private void _OnGuiInput(InputEvent @event)
@@ -117,7 +118,7 @@ public partial class Card : Button
 		if (mouseEvent.ButtonIndex != MouseButton.Left) return;
 
 		// Handle card events when double-clicked
-		if (mouseEvent.DoubleClick)
+		if (mouseEvent.DoubleClick && interactable)
 		{
 			game.OnCardChosen(this);
 			return;
@@ -127,7 +128,7 @@ public partial class Card : Button
 		if (mouseEvent.Pressed)
 		{
 			// Prevent snap when dragging the card with an offset
-			dragOffset = GetGlobalMousePosition() - GlobalPosition;
+			dragOffset = GetGlobalMousePosition() - Position;
 			followingMouse = true;
 
 			// Move the card to the top of the parent node

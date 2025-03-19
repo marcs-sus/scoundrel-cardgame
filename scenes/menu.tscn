@@ -1,0 +1,117 @@
+[gd_scene load_steps=5 format=3 uid="uid://bucewyg6bibr3"]
+
+[ext_resource type="Script" uid="uid://daqqw3sko4u77" path="res://scripts/Menu.cs" id="1_yqeox"]
+[ext_resource type="FontFile" uid="uid://b022wxa1lwsav" path="res://assets/fonts/VCR_OSD_MONO_1.001.ttf" id="2_con2f"]
+[ext_resource type="PackedScene" uid="uid://d25he7tiryu7k" path="res://scenes/card.tscn" id="2_vjb58"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4h3mk"]
+bg_color = Color(0.092295, 0.328546, 0.490337, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[node name="Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_yqeox")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.133333, 0.435294, 0.623529, 1)
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -193.5
+offset_top = 50.0
+offset_right = 193.5
+offset_bottom = 160.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("2_con2f")
+theme_override_font_sizes/font_size = 80
+text = "Scoundrel"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ShowCard" parent="." instance=ExtResource("2_vjb58")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -63.0
+offset_top = -90.0
+offset_right = 63.0
+offset_bottom = 90.0
+grow_horizontal = 2
+grow_vertical = 2
+Suit = 3
+Rank = 14
+
+[node name="MenuOptions" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -483.5
+offset_top = -148.0
+offset_right = 483.5
+offset_bottom = -48.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_4h3mk")
+
+[node name="MarginContainer" type="MarginContainer" parent="MenuOptions"]
+layout_mode = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 25
+
+[node name="VBoxContainer" type="HBoxContainer" parent="MenuOptions/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Play" type="Button" parent="MenuOptions/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("2_con2f")
+theme_override_font_sizes/font_size = 30
+text = "Play"
+
+[node name="Options" type="Button" parent="MenuOptions/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("2_con2f")
+theme_override_font_sizes/font_size = 30
+text = "Options"
+
+[node name="Exit" type="Button" parent="MenuOptions/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("2_con2f")
+theme_override_font_sizes/font_size = 30
+text = "Exit"
+
+[connection signal="pressed" from="MenuOptions/MarginContainer/VBoxContainer/Play" to="." method="_OnPlayPressed"]
+[connection signal="pressed" from="MenuOptions/MarginContainer/VBoxContainer/Options" to="." method="_OnOptionsPressed"]
+[connection signal="pressed" from="MenuOptions/MarginContainer/VBoxContainer/Exit" to="." method="_OnExitPressed"]

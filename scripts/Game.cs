@@ -23,6 +23,12 @@ public partial class Game : Control
 		PlayerTurn(false);
 	}
 
+	public override void _Process(double delta)
+	{
+		if (Input.IsActionJustPressed("exit") || GetNode<Button>("Exit").ButtonPressed)
+			GetTree().ChangeSceneToFile("res://scenes/menu.tscn");
+	}
+
 	private void PlayerTurn(bool previousRoomAvoided)
 	{
 		GD.Print("Starting new turn!");
@@ -125,7 +131,8 @@ public partial class Game : Control
 		card.GetParent()?.RemoveChild(card);
 
 		// Assign the new weapon to the corresponding slot
-		card.slotPosition = equippedWeapon.GetNode<Marker2D>("Slots/WeaponSlot").GlobalPosition;
+		card.slotPosition = equippedWeapon.GetNode<Marker2D>("Slots/WeaponSlot").Position;
+		card.interactable = false;
 		equippedWeapon.GetNode<Control>("Weapon").AddChild(card);
 
 		// Update the player's equipped weapon and reset the last slain monster
@@ -178,7 +185,8 @@ public partial class Game : Control
 		card.GetParent()?.RemoveChild(card);
 
 		// Assign the last monster slain to the corresponding slot
-		card.slotPosition = equippedWeapon.GetNode<Marker2D>("Slots/LastMonster").GlobalPosition;
+		card.slotPosition = equippedWeapon.GetNode<Marker2D>("Slots/LastMonster").Position;
+		card.interactable = false;
 		equippedWeapon.GetNode<Control>("Monster").AddChild(card);
 	}
 }

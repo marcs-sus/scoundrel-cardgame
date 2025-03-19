@@ -17,6 +17,7 @@ public partial class DiscardPile : Control
 
 		// Add the card to the discard pile
 		card.slotPosition = Position;
+		card.interactable = false;
 		discardPile.Add(card);
 
 		AddChild(card); // Optional visualization effect
