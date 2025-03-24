@@ -1,6 +1,5 @@
 using Godot;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using ScoundrelGame;
 
@@ -15,12 +14,14 @@ public partial class Game : Control
 	private Player player => GetNode<Player>("Player");
 	private Control equippedWeapon => GetNode<Control>("EquippedWeapon");
 	private Button withWeaponBtn => GetNode<Button>("FightOptions/MarginContainer/Options/WithWeapon");
+	private Button barehandedBtn => GetNode<Button>("FightOptions/MarginContainer/Options/Barehanded");
 	private Button avoidBtn => GetNode<Button>("AvoidOption/MarginContainer/Avoid");
+	private Label gameOverLabel => GetNode<Label>("GameOver");
 
 	public override void _Ready()
 	{
 		// Start the game with a new turn
-		PlayerTurn(false);
+		PlayerTurn(previousRoomAvoided: false);
 	}
 
 	public override void _Process(double delta)
@@ -56,7 +57,7 @@ public partial class Game : Control
 		room.cards.Clear();
 
 		// Drawn new cards by starting a new turn
-		PlayerTurn(true);
+		PlayerTurn(previousRoomAvoided: true);
 	}
 
 	public void OnCardChosen(Card card)
@@ -82,11 +83,13 @@ public partial class Game : Control
 		room.cards.Remove(card);
 
 		GD.Print($"Cards left in room: {room.cards.Count}");
+		if (room.cards.Count == 0)
+			GameOver(lost: false);
 
 		// If a room reaches its minimum size, start a new turn
 		if (room.cards.Count == room.RefreshAt)
 		{
-			PlayerTurn(false);
+			PlayerTurn(previousRoomAvoided: false);
 		}
 		else
 		{
@@ -151,13 +154,17 @@ public partial class Game : Control
 			BarehandedCombat(card);
 		else
 			WeaponCombat(card);
+
+		// End the game if player health reaches 0
+		if (player.Health <= 0)
+			GameOver(lost: true);
 	}
 
 	private void BarehandedCombat(Card card)
 	{
 		// Simply subtract the damage from the player's health
 		int damage = card.Value;
-		player.Health -= damage;
+		player.Health = Math.Max(0, player.Health - damage);
 
 		GD.Print("Fought barehanded");
 		GD.Print($"Monster: {card.CardName} (Value: {card.Value})");
@@ -170,7 +177,7 @@ public partial class Game : Control
 	{
 		// Subtract the damage from the player's health, considering the equipped weapon's value
 		int damage = Math.Max(0, card.Value - player.EquippedWeapon.Value);
-		player.Health -= damage;
+		player.Health = Math.Max(0, player.Health - damage);
 
 		GD.Print($"Fought with weapon: {player.EquippedWeapon.Name}");
 		GD.Print($"Monster: {card.CardName} (Value: {card.Value})");
@@ -188,5 +195,23 @@ public partial class Game : Control
 		card.slotPosition = equippedWeapon.GetNode<Marker2D>("Slots/LastMonster").Position;
 		card.interactable = false;
 		equippedWeapon.GetNode<Control>("Monster").AddChild(card);
+	}
+
+	public void GameOver(bool lost)
+	{
+		// Display game over message
+		GD.Print("Game Over! - " + (lost ? "You Died!" : "You Win!"));
+		gameOverLabel.Text = "Game Over!\n" + (lost ? "You Died!" : "You Win!");
+
+		// Disable all interactions
+		avoidBtn.Disabled = true;
+		barehandedBtn.Disabled = true;
+		withWeaponBtn.Disabled = true;
+		room.cards.ForEach(card => card.interactable = false);
+
+		// Set timer to exit the game
+		Timer timer = GetNode<Timer>("Timer");
+		timer.Start();
+		timer.Timeout += () => GetTree().ChangeSceneToFile("res://scenes/menu.tscn");
 	}
 }

@@ -15,12 +15,12 @@ public partial class DiscardPile : Control
 	{
 		card.GetParent()?.RemoveChild(card);
 
-		// Add the card to the discard pile
 		card.slotPosition = Position;
 		card.interactable = false;
 		discardPile.Add(card);
 
-		AddChild(card); // Optional visualization effect
+		// Optional visualization effect
+		// AddChild(card);
 	}
 
 	public void ClearDiscardPile() // Optional

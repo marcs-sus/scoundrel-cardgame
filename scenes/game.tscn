@@ -52,6 +52,27 @@ theme_override_font_sizes/font_size = 32
 text = "X"
 flat = true
 
+[node name="GameOver" type="Label" parent="."]
+z_index = 50
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -0.5
+offset_top = -39.0
+offset_right = 0.5
+offset_bottom = 39.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("3_p57ef")
+theme_override_font_sizes/font_size = 88
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.5
+one_shot = true
+
 [node name="Player" type="Node" parent="."]
 script = ExtResource("3_lnu2h")
 
@@ -88,8 +109,10 @@ offset_right = 3.0
 layout_mode = 1
 anchor_left = 0.802951
 anchor_top = 0.540123
-anchor_right = 0.927951
-anchor_bottom = 0.845679
+anchor_right = 0.802951
+anchor_bottom = 0.540123
+offset_right = 144.0
+offset_bottom = 198.0
 grow_horizontal = 1
 grow_vertical = 1
 metadata/_edit_use_anchors_ = true
@@ -104,7 +127,6 @@ metadata/_edit_use_anchors_ = true
 
 [node name="Slots" type="Control" parent="EquippedWeapon"]
 anchors_preset = 0
-offset_right = 75.0
 metadata/_edit_use_anchors_ = true
 
 [node name="WeaponSlot" type="Marker2D" parent="EquippedWeapon/Slots"]
@@ -118,8 +140,6 @@ anchors_preset = 0
 [node name="Monster" type="Control" parent="EquippedWeapon"]
 z_index = 2
 anchors_preset = 0
-offset_left = 75.0
-offset_right = 75.0
 metadata/_edit_use_anchors_ = true
 
 [node name="FightOptions" type="PanelContainer" parent="."]
