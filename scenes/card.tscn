@@ -1,12 +1,17 @@
 [gd_scene load_steps=5 format=3 uid="uid://d25he7tiryu7k"]
 
 [ext_resource type="Script" uid="uid://dyh2n6ewo124t" path="res://scripts/Card.cs" id="1_ktuci"]
-[ext_resource type="Texture2D" uid="uid://cdjogeib0vw2l" path="res://assets/visuals/card_atlas.tres" id="2_6u4wf"]
-[ext_resource type="Texture2D" uid="uid://cvl1jsbace336" path="res://assets/visuals/cards_tilesheet.png" id="2_ktuci"]
+[ext_resource type="Texture2D" uid="uid://cdjq505iyd6sg" path="res://assets/visuals/cards/card_blank.png" id="2_ktuci"]
+[ext_resource type="Shader" uid="uid://dk24tddb3r602" path="res://shaders/3D-perspective.gdshader" id="3_ktuci"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_kg30u"]
-atlas = ExtResource("2_ktuci")
-region = Rect2(856, 2, 42, 60)
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ktuci"]
+shader = ExtResource("3_ktuci")
+shader_parameter/rect_size = Vector2(126, 180)
+shader_parameter/fov = 90.0
+shader_parameter/cull_back = true
+shader_parameter/y_rot = 0.0
+shader_parameter/x_rot = 0.0
+shader_parameter/inset = 0.0
 
 [node name="Card" type="Button"]
 custom_minimum_size = Vector2(126, 180)
@@ -36,18 +41,19 @@ offset_top = 15.0
 offset_bottom = 15.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = SubResource("AtlasTexture_kg30u")
-expand_mode = 1
+texture = ExtResource("2_ktuci")
 metadata/_edit_use_anchors_ = true
 
 [node name="CardTexture" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_ktuci")
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_right = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_6u4wf")
+texture = ExtResource("2_ktuci")
 expand_mode = 1
 metadata/_edit_use_anchors_ = true
 

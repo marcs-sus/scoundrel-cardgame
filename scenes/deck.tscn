@@ -1,12 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://cjimxgg0y7iiy"]
+[gd_scene load_steps=3 format=3 uid="uid://cjimxgg0y7iiy"]
 
 [ext_resource type="Script" uid="uid://cnithodf6n306" path="res://scripts/Deck.cs" id="1_gdbsr"]
 [ext_resource type="Texture2D" uid="uid://bd730uw1y2qqt" path="res://assets/visuals/cards_pile.png" id="1_sdhao"]
-[ext_resource type="Texture2D" uid="uid://cvl1jsbace336" path="res://assets/visuals/cards_tilesheet.png" id="2_gdbsr"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_er72m"]
-atlas = ExtResource("2_gdbsr")
-region = Rect2(856, 2, 42, 60)
 
 [node name="Deck" type="Control"]
 custom_minimum_size = Vector2(144, 198)
@@ -28,7 +23,6 @@ anchor_right = 1.0
 anchor_bottom = 0.924242
 offset_top = 15.0
 offset_bottom = 15.0
-texture = SubResource("AtlasTexture_er72m")
 expand_mode = 1
 
 [node name="PileTexture" type="TextureRect" parent="."]

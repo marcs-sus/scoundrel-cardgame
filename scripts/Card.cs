@@ -26,34 +26,6 @@ public partial class Card : Button
 		}
 	}
 
-	private const int ATLAS_CARD_WIDTH = 42, ATLAS_CARD_HEIGHT = 60, ATLAS_DISTANCE = 65, BASE_X = 11, BASE_Y = 2;
-	private const string CARD_ALTAS_PATH = "res://assets/visuals/cards_tilesheet.png";
-	private Dictionary<Enums.Suit, int> suitMap = new Dictionary<Enums.Suit, int>()
-	{
-		// Map the suit to the index in the atlas
-		{ Enums.Suit.Hearts, 0 },
-		{ Enums.Suit.Diamonds, 1 },
-		{ Enums.Suit.Clubs, 2 },
-		{ Enums.Suit.Spades, 3 }
-	};
-	private Dictionary<Enums.Rank, int> rankMap = new Dictionary<Enums.Rank, int>()
-	{
-		// Map the rank to the index in the atlas
-		{ Enums.Rank.Two, 1 },
-		{ Enums.Rank.Three, 2 },
-		{ Enums.Rank.Four, 3 },
-		{ Enums.Rank.Five, 4 },
-		{ Enums.Rank.Six, 5 },
-		{ Enums.Rank.Seven, 6 },
-		{ Enums.Rank.Eight, 7 },
-		{ Enums.Rank.Nine, 8 },
-		{ Enums.Rank.Ten, 9 },
-		{ Enums.Rank.Jack, 10 },
-		{ Enums.Rank.Queen, 11 },
-		{ Enums.Rank.King, 12 },
-		{ Enums.Rank.Ace, 0 }
-	};
-
 	public Vector2 slotPosition { get; set; }
 	private bool followingMouse = false;
 	private Vector2 dragOffset = Vector2.Zero;
@@ -62,6 +34,7 @@ public partial class Card : Button
 	private readonly static PackedScene cardScene = GD.Load<PackedScene>("res://scenes/card.tscn");
 	private TextureRect cardTexture => GetNode<TextureRect>("CardTexture");
 	private Game game => GetNode<Game>("/root/Game");
+	private CardManager cardManager => GetNode<CardManager>("/root/CardManager");
 
 	public static Card NewCard(Enums.Suit suit, Enums.Rank rank, Vector2 slotPosition)
 	{
@@ -76,18 +49,16 @@ public partial class Card : Button
 	public override void _Ready()
 	{
 		// Load the card atlas texture
-		Texture2D atlas = (Texture2D)GD.Load(CARD_ALTAS_PATH);
+		string textureStr = $"{Suit}_{Rank}";
 
-		int suitIndex = suitMap[Suit], rankIndex = rankMap[Rank];
-		int regionX = BASE_X + rankIndex * ATLAS_DISTANCE, regionY = BASE_Y + suitIndex * ATLAS_DISTANCE;
-
-		AtlasTexture atlasTexture = new AtlasTexture()
+		try
 		{
-			// Define the region in the atlas based on the suit and rank
-			Atlas = atlas,
-			Region = new Rect2(regionX, regionY, ATLAS_CARD_WIDTH, ATLAS_CARD_HEIGHT)
-		};
-		cardTexture.Texture = atlasTexture;
+			cardTexture.Texture = cardManager.CardTextures[textureStr];
+		}
+		catch (KeyNotFoundException ex)
+		{
+			GD.PrintErr(ex.Message);
+		}
 	}
 
 	public override void _Process(double delta)

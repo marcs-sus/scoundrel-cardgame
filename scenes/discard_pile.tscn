@@ -1,12 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://c05xdr4fwa0t0"]
+[gd_scene load_steps=3 format=3 uid="uid://c05xdr4fwa0t0"]
 
 [ext_resource type="Script" uid="uid://b0elktbc4y3ee" path="res://scripts/DiscardPile.cs" id="1_844um"]
-[ext_resource type="Texture2D" uid="uid://cvl1jsbace336" path="res://assets/visuals/cards_tilesheet.png" id="2_coum4"]
 [ext_resource type="Texture2D" uid="uid://bd730uw1y2qqt" path="res://assets/visuals/cards_pile.png" id="3_xgywl"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_er72m"]
-atlas = ExtResource("2_coum4")
-region = Rect2(856, 2, 42, 60)
 
 [node name="DiscardPile" type="Control"]
 custom_minimum_size = Vector2(144, 198)
@@ -28,7 +23,6 @@ anchor_right = 1.0
 anchor_bottom = 0.924242
 offset_top = 15.0
 offset_bottom = 15.0
-texture = SubResource("AtlasTexture_er72m")
 expand_mode = 1
 metadata/_edit_use_anchors_ = true
 
