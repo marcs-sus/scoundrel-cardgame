@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://d25he7tiryu7k"]
 
 [ext_resource type="Script" uid="uid://dyh2n6ewo124t" path="res://scripts/Card.cs" id="1_ktuci"]
-[ext_resource type="Texture2D" uid="uid://cdjq505iyd6sg" path="res://assets/visuals/cards/card_blank.png" id="2_ktuci"]
+[ext_resource type="Texture2D" uid="uid://d10aiqlwkr2yg" path="res://assets/visuals/cards/card_blank.png" id="2_ktuci"]
 [ext_resource type="Shader" uid="uid://dk24tddb3r602" path="res://shaders/3D-perspective.gdshader" id="3_ktuci"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ktuci"]
@@ -16,14 +16,9 @@ shader_parameter/inset = 0.0
 [node name="Card" type="Button"]
 custom_minimum_size = Vector2(126, 180)
 anchors_preset = -1
-anchor_left = 0.055
-anchor_top = 0.139
-anchor_right = 0.055
-anchor_bottom = 0.139
-offset_left = -63.36
-offset_top = -90.072
-offset_right = 62.64
-offset_bottom = 89.9281
+anchor_right = 0.109375
+anchor_bottom = 0.277778
+offset_bottom = 7.62939e-05
 flat = true
 script = ExtResource("1_ktuci")
 Rank = 2
@@ -34,13 +29,12 @@ modulate = Color(0, 0, 0, 1)
 self_modulate = Color(1, 1, 1, 0.168627)
 show_behind_parent = true
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = -1
+anchor_top = 0.0555556
 anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = 15.0
-offset_bottom = 15.0
-grow_horizontal = 2
-grow_vertical = 2
+anchor_bottom = 1.05556
+offset_top = 2.0
+offset_bottom = 2.0
 texture = ExtResource("2_ktuci")
 metadata/_edit_use_anchors_ = true
 
@@ -50,11 +44,7 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = 1.0
-grow_horizontal = 2
-grow_vertical = 2
 texture = ExtResource("2_ktuci")
-expand_mode = 1
 metadata/_edit_use_anchors_ = true
 
 [connection signal="gui_input" from="." to="." method="_OnGuiInput"]
